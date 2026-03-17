@@ -1,1 +1,0 @@
-# japan-tour-app-2026
