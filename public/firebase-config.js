@@ -5,13 +5,14 @@
 // ============================================================
 
 export const firebaseConfig = {
-  apiKey:            "INSERISCI_IL_TUO_API_KEY",
-  authDomain:        "INSERISCI.firebaseapp.com",
-  databaseURL:       "https://INSERISCI-default-rtdb.firebaseio.com",
-  projectId:         "INSERISCI_IL_TUO_PROJECT_ID",
-  storageBucket:     "INSERISCI.appspot.com",
-  messagingSenderId: "INSERISCI_SENDER_ID",
-  appId:             "INSERISCI_APP_ID"
+  apiKey: "AIzaSyDdKDqKioyTVCpgcYIYHyLGUNOh6sJCjNE",
+  authDomain: "japan-tour-app-2026.firebaseapp.com",
+  databaseURL: "https://japan-tour-app-2026-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "japan-tour-app-2026",
+  storageBucket: "japan-tour-app-2026.firebasestorage.app",
+  messagingSenderId: "74829941825",
+  appId: "1:74829941825:web:7631fe0dfa271c2177cac0",
+  measurementId: "G-SGDJKL8VFX"
 };
 
 // ============================================================
