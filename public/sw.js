@@ -1,4 +1,4 @@
-const CACHE_NAME = 'japan-tour-2026-v12';
+const CACHE_NAME = 'japan-tour-2026-v13';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
