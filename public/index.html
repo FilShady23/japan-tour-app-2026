@@ -104,11 +104,12 @@
 
   /* DAY CARDS */
   .days-grid { display: flex; flex-direction: column; gap: 2px; }
-  .day-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s; }
-  .day-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
-  .day-header { display: flex; align-items: center; gap: 20px; padding: 20px 24px; user-select: none; }
-  .day-number { font-family: 'Shippori Mincho', serif; font-size: 28px; font-weight: 800; color: var(--sakura); line-height: 1; min-width: 48px; }
-  .day-city-badge { padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 500; letter-spacing: 0.05em; }
+  .day-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s, transform 0.15s; }
+  .day-card:hover { box-shadow: 0 6px 28px rgba(0,0,0,0.10); transform: translateY(-1px); }
+  .day-card.open { box-shadow: 0 8px 32px rgba(232,160,168,0.18); }
+  .day-header { display: flex; align-items: center; gap: 18px; padding: 22px 24px; user-select: none; }
+  .day-number { font-family: 'Shippori Mincho', serif; font-size: 36px; font-weight: 800; color: var(--sakura); line-height: 1; min-width: 52px; }
+  .day-city-badge { padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.05em; }
   .badge-fukuoka { background: rgba(196,150,58,0.12); color: #8a6020; }
   .badge-hiroshima { background: rgba(107,140,107,0.12); color: #3d6b3d; }
   .badge-osaka { background: rgba(232,160,168,0.2); color: #9a3040; }
@@ -117,9 +118,9 @@
   .badge-okinawa { background: rgba(100,180,220,0.15); color: #1a5a80; }
   .badge-viaggio { background: rgba(160,160,160,0.1); color: #666; }
   .day-info { flex: 1; }
-  .day-title { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
-  .day-subtitle { font-size: 13px; color: var(--muted); }
-  .day-toggle { width: 28px; height: 28px; border-radius: 50%; background: var(--paper2); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: transform 0.2s, background 0.2s; flex-shrink: 0; }
+  .day-title { font-size: 16px; font-weight: 600; margin-bottom: 3px; color: var(--ink); }
+  .day-subtitle { font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .day-toggle { width: 32px; height: 32px; border-radius: 50%; background: var(--paper2); display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.2s, background 0.2s; flex-shrink: 0; }
   .day-card.open .day-toggle { transform: rotate(180deg); background: var(--sakura-light); }
   .day-body { padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
   .day-card.open .day-body { max-height: 2400px; }
@@ -202,6 +203,8 @@
   .info-table td { padding: 8px 0; vertical-align: top; }
   .info-table td:first-child { color: var(--muted); width: 45%; }
   .info-table td:last-child { font-weight: 500; }
+  .hotel-link { color: var(--indigo); text-decoration: none; font-weight: 500; font-size: 13px; transition: color 0.15s; }
+  .hotel-link:hover { color: var(--sakura); text-decoration: underline; }
   .jr-verdict { background: var(--matcha); color: #fff; border-radius: 10px; padding: 14px 18px; margin-top: 16px; font-size: 13px; line-height: 1.5; }
   .jr-verdict strong { font-size: 15px; display: block; margin-bottom: 4px; }
   .flight-card { background: var(--ink); color: #fff; border-radius: 14px; padding: 24px; }
@@ -221,13 +224,27 @@
 
   /* CHECKLIST */
   .checklist-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .checklist-section { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
-  .checklist-title { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
-  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 13.5px; transition: opacity 0.2s; }
+  .checklist-section { background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: opacity 0.2s; }
+  .checklist-section.section-hidden { opacity: 0.75; }
+  .checklist-section-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; cursor: pointer; background: var(--paper2); border-bottom: 1px solid var(--border); user-select: none; }
+  .checklist-section-header:hover { background: var(--sakura-pale); }
+  .checklist-section.section-hidden .checklist-section-header { border-bottom: none; }
+  .checklist-section-meta { display: flex; align-items: center; gap: 10px; }
+  .checklist-count { font-size: 11px; font-weight: 600; background: var(--paper); border: 1px solid var(--border); border-radius: 20px; padding: 2px 8px; color: var(--muted); }
+  .checklist-count.done { background: rgba(107,140,107,0.15); border-color: var(--matcha); color: var(--matcha); }
+  .checklist-hide-btn { font-size: 10px; color: var(--muted); }
+  .checklist-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .check-item { display: flex; align-items: center; gap: 10px; padding: 10px 18px; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 13.5px; transition: background 0.15s; }
   .check-item:last-child { border-bottom: none; }
-  .check-item.done { opacity: .4; text-decoration: line-through; }
-  .check-box { width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background 0.2s, border-color 0.2s; margin-top: 1px; }
+  .check-item:hover { background: var(--paper); }
+  .check-item.done { opacity: .45; }
+  .check-item.done .check-item-text { text-decoration: line-through; }
+  .check-box { width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background 0.2s, border-color 0.2s; }
   .check-item.done .check-box { background: var(--matcha); border-color: var(--matcha); color: #fff; }
+  .check-item-text { flex: 1; }
+  .check-item-del { background: none; border: none; color: transparent; cursor: pointer; font-size: 13px; padding: 2px 4px; transition: color 0.15s; flex-shrink: 0; }
+  .check-item:hover .check-item-del { color: var(--muted); }
+  .check-item-del:hover { color: #c04040 !important; }
 
   /* CONSIGLI */
   .consigli-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -404,6 +421,16 @@
         </div>
       </div>
     </div>
+    <!-- Mappa globale tappe -->
+    <div style="margin-bottom:32px">
+      <button class="city-map-toggle" id="tripmap-toggle" onclick="toggleTripMap(event)" style="margin-bottom:8px">
+        🗺️ Mappa generale del tour · tutte le tappe
+        <span class="map-arrow" id="tripmap-arrow">▾</span>
+      </button>
+      <div class="city-map-wrap" id="tripmap-wrap">
+        <div class="city-map-div" id="tripmap-box" style="height:380px"></div>
+      </div>
+    </div>
     <div class="days-grid" id="days-grid"></div>
   </section>
 
@@ -519,7 +546,15 @@
       <div class="info-card">
         <div class="info-card-icon">🏨</div>
         <div class="info-card-title">Riepilogo Alloggi</div>
-        <table class="info-table"><tr><td>Fukuoka (2n)</td><td>APA Hotel Hakata Ekimae</td></tr><tr><td>Hiroshima (2n)</td><td>Flex Hotel Hiroshima</td></tr><tr><td>Osaka (2n)</td><td>Leisureyado Yuesu</td></tr><tr><td>Kyoto (2n)</td><td>Sahino Tachibanaan</td></tr><tr><td>Tokyo (3n)</td><td>Area Asakusa</td></tr><tr><td>Okinawa (4n)</td><td>Freedom Hills</td></tr><tr><td>Seoul scalo (1n)</td><td>Hotel Incheon</td></tr></table>
+        <table class="info-table">
+          <tr><td>Fukuoka (2n)</td><td><a href="https://www.google.com/maps/search/APA+Hotel+Hakata+Ekimae" target="_blank" class="hotel-link">🏨 APA Hotel Hakata Ekimae ↗</a></td></tr>
+          <tr><td>Hiroshima (2n)</td><td><a href="https://www.google.com/maps/search/Flex+Hotel+Hiroshima" target="_blank" class="hotel-link">🏨 Flex Hotel Hiroshima ↗</a></td></tr>
+          <tr><td>Osaka (2n)</td><td><a href="https://www.google.com/maps/search/Leisureyado+Yuesu+Osaka" target="_blank" class="hotel-link">🏨 Leisureyado Yuesu ↗</a></td></tr>
+          <tr><td>Kyoto (2n)</td><td><a href="https://www.google.com/maps/search/Sahino+Tachibanaan+Kyoto" target="_blank" class="hotel-link">🏨 Sahino Tachibanaan ↗</a></td></tr>
+          <tr><td>Tokyo (3n)</td><td><a href="https://www.google.com/maps/search/Asakusa+Tokyo+hotel" target="_blank" class="hotel-link">🏨 Area Asakusa ↗</a></td></tr>
+          <tr><td>Okinawa (4n)</td><td><a href="https://www.google.com/maps/search/Freedom+Hills+Okinawa" target="_blank" class="hotel-link">🏨 Freedom Hills ↗</a></td></tr>
+          <tr><td>Seoul scalo (1n)</td><td><a href="https://www.google.com/maps/search/hotel+near+Incheon+airport" target="_blank" class="hotel-link">🏨 Hotel Incheon ↗</a></td></tr>
+        </table>
       </div>
       <div class="info-card" style="grid-column:1/-1">
         <div class="info-card-icon">🚗</div>
@@ -536,7 +571,32 @@
       <div class="section-label">Prima di partire</div>
       <h2 class="section-title">Checklist</h2>
     </div>
-    <div style="font-size:13px;color:var(--muted);margin-bottom:24px">Le spunte sono <strong>personali</strong> — ognuno tiene traccia delle proprie sul proprio dispositivo.</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px">
+      <div style="font-size:13px;color:var(--muted)">Le spunte sono <strong>personali</strong> · ognuno tiene traccia sul proprio dispositivo</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn-add" style="background:var(--indigo);font-size:12px;padding:6px 14px" onclick="toggleChecklistAdd()">+ Aggiungi voce</button>
+        <button class="btn-add" style="background:var(--matcha);font-size:12px;padding:6px 14px" onclick="requestNotificationPermission()">🔔 Attiva reminder</button>
+      </div>
+    </div>
+    <!-- Form aggiungi voce -->
+    <div id="checklist-add-form" style="display:none;background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--ink)">Aggiungi una voce personalizzata</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input class="spese-input" id="cl-new-text" placeholder="Es: Comprare adattatore prese..." style="flex:1;min-width:180px" onkeydown="if(event.key==='Enter')addChecklistItem()"/>
+        <select class="spese-select" id="cl-new-cat">
+          <option value="0">📄 Documenti</option>
+          <option value="1">💰 Finanze</option>
+          <option value="2">📱 Tech & Connessione</option>
+          <option value="3">🎒 Packing</option>
+          <option value="4">🚗 Okinawa Auto</option>
+          <option value="5">⚠️ Da fare prima</option>
+          <option value="6">✨ Personalizzato</option>
+        </select>
+        <button class="btn-add" onclick="addChecklistItem()">Aggiungi</button>
+      </div>
+    </div>
+    <!-- Notifica reminder status -->
+    <div id="notif-status" style="display:none;background:var(--sakura-pale);border:1px solid var(--sakura-light);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:var(--ink)"></div>
     <div class="checklist-grid" id="checklist-grid"></div>
   </section>
 
@@ -842,14 +902,7 @@ const days = [
   { day:17, date:"26 Agosto", city:"viaggio", badge:"badge-viaggio", title:"Rientro · Okinawa → Seoul → Roma", subtitle:"Ultimo mare · Volo 14:35 · Scalo Seoul", icon:"✈️", activities:["Mattinata: ultimo bagno in mare o relax","Consegna auto a noleggio","Aeroporto Naha (OKA)","Volo t'way Air OKA → Seoul ~14:35","Arrivo Seoul Incheon ~16:30","Hotel vicino aeroporto Incheon","Eventuale gita a Insadong o Myeongdong (+45min in treno)"], food:["Eventuale cena coreana a Seoul!"], tip:"🏠 Ultima notte. Domani 27 Agosto si torna a Roma. Lo scalo Seoul è un bonus: treno dall'aeroporto ~45min." }
 ];
 
-const checklistData = [
-  { title:"📄 Documenti", items:["Passaporto valido (min. 6 mesi)","Patente internazionale per Okinawa","Assicurazione di viaggio (~30-50€)","Biglietti volo stampati/offline","Conferme hotel stampate/offline","Biglietti shinkansen acquistati"] },
-  { title:"💰 Finanze", items:["Euro → Yen pianificati","Carta compatibile ATM esteri","Budget pasti stimato (~25-35€/giorno)","Emergency cash separato"] },
-  { title:"📱 Tech & Connessione", items:["SIM dati o pocket WiFi prenotato","Google Maps offline Giappone","Google Maps offline Okinawa","Japan Official Travel App installata","Traduttore offline scaricato","Adapter presa giapponese (tipo A)"] },
-  { title:"🎒 Packing", items:["Scarpe comode (15-20km/giorno!)","Crema solare alta protezione","Cappello per il caldo","Bottiglietta riutilizzabile","Antidiarroico e farmaci base","Vestiti leggeri e traspiranti"] },
-  { title:"🚗 Okinawa Auto", items:["Agenzia noleggio prenotata in anticipo","Patente internazionale richiesta in motorizzazione","Google Maps Okinawa offline","Promemoria: si guida a sinistra!"] },
-  { title:"⚠️ Da fare prima della partenza", items:["Volo Tokyo → Okinawa prenotato (ANA)","Traghetto Kerama Islands prenotato","IC Card (Suica/Pasmo) pianificata per Tokyo","Giardino Kokedera Kyoto: email prenotazione (settimane prima!)"] }
-];
+// checklistData moved to defaultChecklistData in checklist section
 
 const consigliData = [
   { icon:"💴", title:"Contanti", text:"Il Giappone è molto cash-based. Ritirate yen agli ATM di 7-Eleven o JP Post — le carte straniere funzionano qui meglio che altrove." },
@@ -1152,38 +1205,182 @@ function renderConsigli() {
 // ════════════════════════════════════════
 // CHECKLIST — localStorage (personale per dispositivo)
 // ════════════════════════════════════════
-const CHECKLIST_KEY = 'japan2026_checklist';
+// ════════════════════════════════════════
+// CHECKLIST — personalizzabile + reminder
+// ════════════════════════════════════════
+const CHECKLIST_KEY       = 'japan2026_checklist';
+const CHECKLIST_ITEMS_KEY = 'japan2026_checklist_custom';
+const CHECKLIST_HIDDEN_KEY= 'japan2026_checklist_hidden';
 
-function loadCheckState() {
-  try { return JSON.parse(localStorage.getItem(CHECKLIST_KEY)) || {}; }
-  catch { return {}; }
+const defaultChecklistData = [
+  { title:"📄 Documenti", items:["Passaporto valido (min. 6 mesi)","Patente internazionale per Okinawa","Assicurazione di viaggio (~30-50€)","Biglietti volo stampati/offline","Conferme hotel stampate/offline","Biglietti shinkansen acquistati"] },
+  { title:"💰 Finanze", items:["Euro → Yen pianificati","Carta compatibile ATM esteri","Budget pasti stimato (~25-35€/giorno)","Emergency cash separato"] },
+  { title:"📱 Tech & Connessione", items:["SIM dati o pocket WiFi prenotato","Google Maps offline Giappone","Google Maps offline Okinawa","Japan Official Travel App installata","Traduttore offline scaricato","Adapter presa giapponese (tipo A)"] },
+  { title:"🎒 Packing", items:["Scarpe comode (15-20km/giorno!)","Crema solare alta protezione","Cappello per il caldo","Bottiglietta riutilizzabile","Antidiarroico e farmaci base","Vestiti leggeri e traspiranti"] },
+  { title:"🚗 Okinawa Auto", items:["Agenzia noleggio prenotata in anticipo","Patente internazionale richiesta in motorizzazione","Google Maps Okinawa offline","Promemoria: si guida a sinistra!"] },
+  { title:"⚠️ Da fare prima della partenza", items:["Volo Tokyo → Okinawa prenotato (ANA)","Traghetto Kerama Islands prenotato","IC Card (Suica/Pasmo) pianificata per Tokyo","Giardino Kokedera Kyoto: email prenotazione (settimane prima!)"] },
+  { title:"✨ Personalizzato", items:[] }
+];
+
+function loadChecklistData() {
+  try {
+    const saved = localStorage.getItem(CHECKLIST_ITEMS_KEY);
+    return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(defaultChecklistData));
+  } catch { return JSON.parse(JSON.stringify(defaultChecklistData)); }
 }
-
+function saveChecklistData() {
+  try { localStorage.setItem(CHECKLIST_ITEMS_KEY, JSON.stringify(checklistSections)); } catch {}
+}
+function loadCheckState() {
+  try { return JSON.parse(localStorage.getItem(CHECKLIST_KEY)) || {}; } catch { return {}; }
+}
 function saveCheckState(state) {
   try { localStorage.setItem(CHECKLIST_KEY, JSON.stringify(state)); } catch {}
 }
+function loadHiddenSections() {
+  try { return JSON.parse(localStorage.getItem(CHECKLIST_HIDDEN_KEY)) || {}; } catch { return {}; }
+}
+function saveHiddenSections() {
+  try { localStorage.setItem(CHECKLIST_HIDDEN_KEY, JSON.stringify(hiddenSections)); } catch {}
+}
 
-let checkState = loadCheckState();
+let checklistSections = loadChecklistData();
+let checkState        = loadCheckState();
+let hiddenSections    = loadHiddenSections();
+
+window.toggleChecklistAdd = () => {
+  const f = document.getElementById('checklist-add-form');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+  if (f.style.display === 'block') document.getElementById('cl-new-text').focus();
+};
+
+window.addChecklistItem = () => {
+  const text = document.getElementById('cl-new-text').value.trim();
+  const cat  = parseInt(document.getElementById('cl-new-cat').value);
+  if (!text) return;
+  if (!checklistSections[cat]) checklistSections[cat] = { title:'✨ Personalizzato', items:[] };
+  checklistSections[cat].items.push(text);
+  saveChecklistData();
+  document.getElementById('cl-new-text').value = '';
+  document.getElementById('checklist-add-form').style.display = 'none';
+  renderChecklist();
+};
+
+window.deleteChecklistItem = (si, ii, e) => {
+  e.stopPropagation();
+  checklistSections[si].items.splice(ii, 1);
+  saveChecklistData();
+  const newState = {};
+  Object.entries(checkState).forEach(([k, v]) => {
+    const [s, i] = k.split('_').map(Number);
+    if (s === si && i === ii) return;
+    if (s === si && i > ii) newState[`${s}_${i-1}`] = v;
+    else newState[k] = v;
+  });
+  checkState = newState;
+  saveCheckState(checkState);
+  renderChecklist();
+};
+
+window.toggleHideSection = (si, e) => {
+  e.stopPropagation();
+  hiddenSections[si] = !hiddenSections[si];
+  saveHiddenSections();
+  renderChecklist();
+};
 
 function renderChecklist() {
-  document.getElementById('checklist-grid').innerHTML = checklistData.map((section,si)=>`
-    <div class="checklist-section">
-      <div class="checklist-title">${section.title}</div>
-      ${section.items.map((item,ii)=>{
-        const key=`${si}_${ii}`, done=checkState[key];
+  const grid = document.getElementById('checklist-grid');
+  if (!grid) return;
+  grid.innerHTML = checklistSections.map((section, si) => {
+    if (section.items.length === 0) return '';
+    const isHidden  = hiddenSections[si];
+    const doneCount = section.items.filter((_,ii) => checkState[`${si}_${ii}`]).length;
+    const total     = section.items.length;
+    return `
+    <div class="checklist-section ${isHidden ? 'section-hidden' : ''}">
+      <div class="checklist-section-header" onclick="toggleHideSection(${si}, event)">
+        <div class="checklist-title">${section.title}</div>
+        <div class="checklist-section-meta">
+          <span class="checklist-count ${doneCount===total?'done':''}">${doneCount}/${total}</span>
+          <span class="checklist-hide-btn">${isHidden ? '▶' : '▼'}</span>
+        </div>
+      </div>
+      ${isHidden ? '' : section.items.map((item, ii) => {
+        const key  = `${si}_${ii}`;
+        const done = checkState[key];
         return `<div class="check-item ${done?'done':''}" onclick="toggleCheck('${key}')">
-          <div class="check-box">${done?'✓':''}</div>${item}
+          <div class="check-box">${done?'✓':''}</div>
+          <span class="check-item-text">${item}</span>
+          <button class="check-item-del" onclick="deleteChecklistItem(${si},${ii},event)">✕</button>
         </div>`;
       }).join('')}
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 window.toggleCheck = key => {
   checkState[key] = !checkState[key];
   saveCheckState(checkState);
   renderChecklist();
+  scheduleReminderCheck();
 };
 
+// ── NOTIFICHE REMINDER ───────────────────────────────────────
+window.requestNotificationPermission = async () => {
+  const statusEl = document.getElementById('notif-status');
+  if (!('Notification' in window)) {
+    statusEl.style.display = 'block';
+    statusEl.textContent = '⚠️ Il tuo browser non supporta le notifiche push.';
+    return;
+  }
+  if (Notification.permission === 'granted') {
+    statusEl.style.display = 'block';
+    statusEl.innerHTML = '✅ Notifiche già attive! Riceverai un reminder ogni volta che apri l\'app con voci ancora da spuntare.';
+    scheduleReminderCheck();
+    return;
+  }
+  const perm = await Notification.requestPermission();
+  statusEl.style.display = 'block';
+  if (perm === 'granted') {
+    statusEl.innerHTML = '✅ Notifiche attivate! Riceverai un reminder ogni mattina fino alla partenza (10 agosto).';
+    scheduleReminderCheck();
+    sendTestNotification();
+  } else {
+    statusEl.textContent = '❌ Notifiche negate. Puoi riattivarle dalle impostazioni del browser.';
+  }
+};
+
+function scheduleReminderCheck() {
+  if (Notification.permission !== 'granted') return;
+  const REMINDER_KEY = 'japan2026_last_reminder';
+  const today = new Date().toDateString();
+  if (localStorage.getItem(REMINDER_KEY) === today) return;
+  let pending = 0;
+  checklistSections.forEach((section, si) => {
+    section.items.forEach((_, ii) => { if (!checkState[`${si}_${ii}`]) pending++; });
+  });
+  if (pending === 0) return;
+  const departure = new Date('2026-08-10');
+  const daysLeft  = Math.ceil((departure - new Date()) / (1000*60*60*24));
+  if (daysLeft <= 0) return;
+  new Notification('🌸 Japan Tour 2026', {
+    body: `${pending} voci ancora da completare · ${daysLeft} giorni alla partenza!`,
+    icon: '/icons/icon-192x192.png',
+    badge: '/icons/icon-72x72.png'
+  });
+  localStorage.setItem(REMINDER_KEY, today);
+}
+
+function sendTestNotification() {
+  setTimeout(() => {
+    if (Notification.permission !== 'granted') return;
+    new Notification('🌸 Japan Tour 2026 — Notifiche attive!', {
+      body: 'Riceverai un reminder con le voci ancora da completare.',
+      icon: '/icons/icon-192x192.png'
+    });
+  }, 800);
+}
 // ════════════════════════════════════════
 // FIREBASE — SPESE (importi in ¥)
 // ════════════════════════════════════════
@@ -1509,12 +1706,71 @@ function createPetals() {
   }
 }
 
+// ── MAPPA GLOBALE TAPPE ───────────────────────────────────────
+let tripMapInited = false;
+
+const tripStops = [
+  { name:'Fukuoka',   emoji:'🍜', lat:33.5902, lng:130.4017, dates:'11–13 Ago' },
+  { name:'Hiroshima', emoji:'🕊️', lat:34.3853, lng:132.4553, dates:'13–15 Ago' },
+  { name:'Osaka',     emoji:'🐙', lat:34.6937, lng:135.5023, dates:'15–17 Ago' },
+  { name:'Kyoto',     emoji:'⛩️', lat:35.0116, lng:135.7681, dates:'17–19 Ago' },
+  { name:'Tokyo',     emoji:'🗼', lat:35.7148, lng:139.7967, dates:'19–22 Ago' },
+  { name:'Okinawa',   emoji:'🐠', lat:26.2124, lng:127.6809, dates:'22–26 Ago' },
+];
+
+window.toggleTripMap = (e) => {
+  if (e) e.stopPropagation();
+  const wrap   = document.getElementById('tripmap-wrap');
+  const arrow  = document.getElementById('tripmap-arrow');
+  const isOpen = wrap.classList.contains('visible');
+  wrap.classList.toggle('visible', !isOpen);
+  arrow.textContent = isOpen ? '▾' : '▴';
+  if (!isOpen && !tripMapInited) {
+    tripMapInited = true;
+    const map = L.map('tripmap-box', { scrollWheelZoom: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 10
+    }).addTo(map);
+
+    // Disegna linea del percorso
+    const latlngs = tripStops.map(s => [s.lat, s.lng]);
+    L.polyline(latlngs, { color: '#e8a0a8', weight: 2.5, dashArray: '6,6', opacity: 0.8 }).addTo(map);
+
+    // Pin per ogni città
+    tripStops.forEach((stop, idx) => {
+      const icon = L.divIcon({
+        className: '',
+        html: `<div style="
+          background:var(--ink);color:#fff;
+          border-radius:50%;width:36px;height:36px;
+          display:flex;align-items:center;justify-content:center;
+          font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);
+          border:2px solid var(--sakura);">${stop.emoji}</div>`,
+        iconSize: [36,36], iconAnchor: [18,18], popupAnchor: [0,-20]
+      });
+      L.marker([stop.lat, stop.lng], { icon })
+        .addTo(map)
+        .bindPopup(`<div style="font-family:'DM Sans',sans-serif;min-width:120px">
+          <div style="font-weight:700;font-size:14px">${stop.emoji} ${stop.name}</div>
+          <div style="font-size:11px;color:#8a7e72;margin-top:2px">${stop.dates}</div>
+        </div>`);
+    });
+
+    // Fit bounds con padding
+    const group = L.featureGroup(tripStops.map(s => L.marker([s.lat, s.lng])));
+    map.fitBounds(group.getBounds().pad(0.15));
+    setTimeout(() => map.invalidateSize(), 100);
+  }
+};
+
 // ── INIT ──────────────────────────────────────────────────────
 renderDays();
 renderChecklist();
 renderConsigli();
 createPetals();
-fetchExchangeRate(); // tasso live JPY/EUR
+fetchExchangeRate();
+scheduleReminderCheck(); // controlla notifiche al caricamento
 
 // ── PWA Service Worker ────────────────────────────────────────
 if ('serviceWorker' in navigator) {
